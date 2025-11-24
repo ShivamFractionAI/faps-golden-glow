@@ -30,7 +30,7 @@ const KFaps = () => {
   };
 
   const getWalletAddress = () => {
-    if (viewState === "logged-in-not-connected") {
+    if (viewState === "logged-in-not-connected" || viewState === "connected") {
       return "0x4e3f...b718";
     }
     return undefined;
@@ -51,7 +51,7 @@ const KFaps = () => {
         <main className="flex-1">
           {viewState === "not-logged-in" && <EmptyState />}
           {viewState === "logged-in-not-connected" && <EngagementRewards onConnect={handleConnectX} />}
-          {viewState === "connected" && <EngagementRewards isConnected />}
+          {viewState === "connected" && <EngagementRewards isConnected userInfo={getUserInfo()} />}
         </main>
       </div>
     </div>

@@ -4,9 +4,14 @@ import { Button } from "./ui/button";
 interface EngagementRewardsProps {
   isConnected?: boolean;
   onConnect?: () => void;
+  userInfo?: {
+    name: string;
+    username: string;
+    avatar?: string;
+  };
 }
 
-export const EngagementRewards = ({ isConnected = false, onConnect }: EngagementRewardsProps) => {
+export const EngagementRewards = ({ isConnected = false, onConnect, userInfo }: EngagementRewardsProps) => {
   return (
     <div className="max-w-4xl mx-auto px-8 py-12">
       <div className="bg-card rounded-2xl border border-border p-8">
@@ -51,7 +56,7 @@ export const EngagementRewards = ({ isConnected = false, onConnect }: Engagement
             </div>
           </div>
           
-          {!isConnected && (
+          {!isConnected ? (
             <Button 
               size="lg"
               className="bg-primary text-primary-foreground hover:bg-primary/90 font-semibold px-8 flex-shrink-0"
@@ -59,6 +64,20 @@ export const EngagementRewards = ({ isConnected = false, onConnect }: Engagement
             >
               Connect 𝕏 Account
             </Button>
+          ) : userInfo && (
+            <div className="flex items-center gap-3 px-6 py-3 rounded-xl bg-card border border-border flex-shrink-0">
+              {userInfo.avatar && (
+                <img 
+                  src={userInfo.avatar} 
+                  alt={userInfo.name}
+                  className="w-12 h-12 rounded-full"
+                />
+              )}
+              <div className="text-left">
+                <div className="text-base font-semibold text-foreground">{userInfo.name}</div>
+                <div className="text-sm text-muted-foreground">{userInfo.username}</div>
+              </div>
+            </div>
           )}
         </div>
       </div>
