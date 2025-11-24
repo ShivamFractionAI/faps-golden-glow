@@ -7,8 +7,15 @@ import { EngagementRewards } from "@/components/EngagementRewards";
 type ViewState = "not-logged-in" | "logged-in-not-connected" | "connected";
 
 const KFaps = () => {
-  // Change this to test different states: "not-logged-in", "logged-in-not-connected", "connected"
-  const [viewState] = useState<ViewState>("connected");
+  const [viewState, setViewState] = useState<ViewState>("not-logged-in");
+
+  const handleLogin = () => {
+    setViewState("logged-in-not-connected");
+  };
+
+  const handleConnectX = () => {
+    setViewState("connected");
+  };
 
   const getUserInfo = () => {
     if (viewState === "not-logged-in") return undefined;
@@ -38,11 +45,12 @@ const KFaps = () => {
           title="K-FAPS"
           userInfo={getUserInfo()}
           walletAddress={getWalletAddress()}
+          onLogin={handleLogin}
         />
         
         <main className="flex-1">
           {viewState === "not-logged-in" && <EmptyState />}
-          {viewState === "logged-in-not-connected" && <EngagementRewards />}
+          {viewState === "logged-in-not-connected" && <EngagementRewards onConnect={handleConnectX} />}
           {viewState === "connected" && <EngagementRewards isConnected />}
         </main>
       </div>

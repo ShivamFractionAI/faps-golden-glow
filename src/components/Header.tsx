@@ -8,9 +8,10 @@ interface HeaderProps {
     avatar?: string;
   } | null;
   walletAddress?: string;
+  onLogin?: () => void;
 }
 
-export const Header = ({ title, userInfo, walletAddress }: HeaderProps) => {
+export const Header = ({ title, userInfo, walletAddress, onLogin }: HeaderProps) => {
   return (
     <header className="border-b border-border bg-background">
       <div className="flex items-center justify-between px-8 py-4">
@@ -40,7 +41,11 @@ export const Header = ({ title, userInfo, walletAddress }: HeaderProps) => {
           )}
           
           {!userInfo && !walletAddress && (
-            <Button variant="default" className="bg-primary text-primary-foreground hover:bg-primary/90 font-semibold">
+            <Button 
+              variant="default" 
+              className="bg-primary text-primary-foreground hover:bg-primary/90 font-semibold"
+              onClick={onLogin}
+            >
               Log In / Sign Up
             </Button>
           )}
