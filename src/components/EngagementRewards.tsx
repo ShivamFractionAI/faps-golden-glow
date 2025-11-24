@@ -3,9 +3,10 @@ import { Button } from "./ui/button";
 
 interface EngagementRewardsProps {
   isConnected?: boolean;
+  onConnect?: () => void;
 }
 
-export const EngagementRewards = ({ isConnected = false }: EngagementRewardsProps) => {
+export const EngagementRewards = ({ isConnected = false, onConnect }: EngagementRewardsProps) => {
   return (
     <div className="max-w-4xl mx-auto px-8 py-12">
       <div className="bg-card rounded-2xl border border-border p-8">
@@ -16,16 +17,14 @@ export const EngagementRewards = ({ isConnected = false }: EngagementRewardsProp
             </div>
             
             <div className="flex-1">
-              <h2 className="text-2xl font-bold text-foreground mb-3">Engagement Rewards</h2>
+              <h2 className="text-2xl font-bold text-foreground mb-3">
+                {isConnected ? "Congratulations!!" : "Connect your 𝕏 account to join the K-FAPS program"}
+              </h2>
               <p className="text-muted-foreground leading-relaxed">
-                Connect your 𝕏 account to join the K-FAPS program
-                <br /><br />
-                Earn FAPS for posting about Fraction AI and for every comment or quote on posts that mention us.
-              </p>
-              
-              {isConnected && (
-                <div className="mt-6 p-4 bg-muted/30 rounded-lg border border-border">
-                  <p className="text-foreground">
+                {isConnected ? (
+                  <>
+                    You're now part of the K-FAPS program!
+                    <br /><br />
                     You can track your rewards anytime at{" "}
                     <a 
                       href="https://fractionai.xyz/dapp/faps" 
@@ -44,9 +43,11 @@ export const EngagementRewards = ({ isConnected = false }: EngagementRewardsProp
                     >
                       dApp
                     </a>
-                  </p>
-                </div>
-              )}
+                  </>
+                ) : (
+                  "Earn FAPS for posting about Fraction AI and for every comment or quote on posts that mention us."
+                )}
+              </p>
             </div>
           </div>
           
@@ -54,6 +55,7 @@ export const EngagementRewards = ({ isConnected = false }: EngagementRewardsProp
             <Button 
               size="lg"
               className="bg-primary text-primary-foreground hover:bg-primary/90 font-semibold px-8 flex-shrink-0"
+              onClick={onConnect}
             >
               Connect 𝕏 Account
             </Button>
